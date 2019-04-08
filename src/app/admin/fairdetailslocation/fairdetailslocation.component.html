@@ -1,0 +1,343 @@
+<div class="container-fluid">
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a data-toggle="pill" href="#fairdetailscitycreate">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+                    Add Fair Details
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#fairdetailscitylist">
+                    <i class="fa fa-table" aria-hidden="true"></i> 
+                    View Fair Details List
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#fairdetailscityedit">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+                    Edit/Update Fair Details List
+                </a>
+            </li>
+          
+        </ul>
+          
+        <div class="tab-content">
+
+            <div id="fairdetailscitycreate" class="tab-pane fade in active">
+                <form autocomplete="off"  [formGroup]="addfairdetailslocationform" (ngSubmit)="addfairdetails();">
+                    <div class="row customrow">
+                        <p class="headingtxttabcontent" [style.color]="theme">ADD FAIR DETAILS (LOCATION)</p>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="statename" placeholder="State Name" (click)="statelistopen();" readonly> 
+                            <div *ngIf="epassstatelist && role!=='SubAdmin' && role!=='Admin'">
+                                <div class="dropdownlistdiv" *ngIf="statelistdropdown&&epassstatelist.length>0">
+                                    <input type="text" class="form-control" placeholder="Search State"  [(ngModel)]="term" formControlName="searchstate">
+                                    <div class="dropdownscroll">
+                                        <div class="dropdowndiv" *ngFor="let item of epassstatelist |filter:term" (click)="updatestatefield(item)">
+                                        {{item.statename}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>                       
+                  
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationcode" placeholder="Corporation Code" (click)="corporationlistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="corporationlistdropdown&&addfairdetailslocationform.value.statename != ''  && role!=='SubAdmin'">
+                                <input type="text" class="form-control" placeholder="Search Corporation"  [(ngModel)]="term1" formControlName="searchcorporation">
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of epasscorporationlist |filter:term1">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename">
+                                            <div  (click)="updatecorporationfield(item)" >
+                                                {{item.corporationcode}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="cityname" placeholder="City Name" (click)="citylistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="citylistdropdown &&addfairdetailslocationform.value.corporationcode != '' && role!=='SubAdmin' ">
+                                <input type="text" class="form-control" placeholder="Search City"  [(ngModel)]="term2" formControlName="searchcity">
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of epasscitylist |filter:term2">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename && item.corporationcode==selcorporationcode">
+                                            <div  (click)="updatecityfield(item)" >
+                                                {{item.cityname}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="passschemename" placeholder="Pass Scheme Name" (click)="passschemelistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="passschemelistdropdown&&addfairdetailslocationform.value.cityname != ''">
+                                <input type="text" class="form-control" placeholder="Search Pass Scheme"  [(ngModel)]="term3" formControlName="searchpassscheme">
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of passschemelist |filter:term3">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename && item.corporationcode==selcorporationcode && item.citycode==selcitycode">
+                                            <div  (click)="updatepassschemefield(item)" >
+                                                {{item.passschemename}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                       
+                   
+                    </div>
+                    <div class="row marbtm10 martop20">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="passtypename" placeholder="Pass Type Name" (click)="passtypelistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="passtypelistdropdown&&addfairdetailslocationform.value.passschemename != ''">
+                               
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of passtypelist ">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename && item.corporationcode==selcorporationcode && item.passschemeno==selpassschemeno">
+                                            <div  (click)="updatepasstypefield(item)" >
+                                                {{item.passtypename}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="fromlocation" placeholder="From Location" (click)="fromlocationlistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="fromlocationlistdropdown&&addfairdetailslocationform.value.cityname != ''">
+                                <input type="text" class="form-control" placeholder="Search From Location"  [(ngModel)]="term4" formControlName="searchpassscheme">
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of epassarealist |filter:term4">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename && item.corporationcode==selcorporationcode && item.citycode==selcitycode">
+                                            <div  (click)="updatefromlocationfield(item)" >
+                                                {{item.areaname}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="tolocation" placeholder="To Location" (click)="tolocationlistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="tolocationlistdropdown&&addfairdetailslocationform.value.cityname != ''">
+                                <input type="text" class="form-control" placeholder="Search To Location"  [(ngModel)]="term5" formControlName="searchpassscheme">
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of epassarealist |filter:term5">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename && item.corporationcode==selcorporationcode && item.citycode==selcitycode && item.areaname!=addfairdetailslocationform.value.fromlocation">
+                                            <div  (click)="updatetolocationfield(item)" >
+                                                {{item.areaname}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="amount" placeholder="Amount">
+                        </div>
+
+                    </div>                
+                  
+
+                    <div class="row customrow">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px;" [style.background-color]="theme">
+                            Submit
+                        </button>
+                    </div>
+                </form> 
+                <p class="ortxt"><span class="orspan card" [style.color]="theme">OR</span></p>
+                <div class="row customrow">
+                    <p class="headingtxttabcontent" [style.color]="theme">EXCEL FILE UPLOAD</p>
+                    <p class="instructionforclicktxt">*Click Excel image to Download Format then Fill Data then Upload Your Data's</p>
+                </div>
+                <div class="row customrow">
+                    <div class="col-sm-3">
+                        <a href="../../../assets/excel/fairdetailslocation.xlsx" download>
+                            <img src="../../../assets/images/excel.png" style="width:100px;">
+                            <i class="material-icons downloadiconstyle card"> get_app </i>
+                        </a>
+                       
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="file" class="form-control" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx"  style="margin:15px !important;" >
+                    </div>
+                   <div class="col-sm-3">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px !important;"  (click)="Upload()" [style.background-color]="theme">
+                            Upload
+                        </button>
+                   </div>
+                   
+                </div>
+                   
+            </div>
+
+            <div id="fairdetailscitylist" class="tab-pane fade">
+                <div class="row customrow">
+                    <p class="headingtxttabcontent"  [style.color]="theme">FAIR DETAILS (LOCATION)</p>
+                </div>
+                <div class="row customrow">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    
+                                   
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                   
+                                    <th>Pass Scheme Name</th>
+                                    <th>Pass Type Name</th>
+                                    <th>Duration</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Update By</th>
+                                </tr>
+                            </thead>
+                           
+                            <tbody>
+                                
+                                <tr *ngFor="let item of allfairdetailslocationlist | paginate: { itemsPerPage: 10, currentPage: p }">
+                                  
+                                    
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                    <td>{{item.passschemename}}</td>
+                                    <td>{{item.passtypename}}</td>
+                                    <td>{{item.duration}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td>{{item.updateby}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationdiv" *ngIf="!allfairdetailslocationlist">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="fairdetailscityedit" class="tab-pane fade">
+                <form autocomplete="off"  [formGroup]="editfairdetailslocationform" (ngSubmit)="editfairdetails();">
+                    <div class="row customrow">
+                        <p class="headingtxttabcontent"  [style.color]="theme">EDIT / UPDATE FAIR DETAILS (LOCATION)</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="statename" placeholder="State Name" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationname" placeholder="Corporation Name" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="cityname" placeholder="City Name" readonly>
+                        </div>
+                       
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="passschemename" placeholder="Pass Scheme Name" readonly>
+                        </div>
+                    </div>
+                    <div class="row marbtm10 martop20">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="passtypename" placeholder="Pass Type Name" readonly>
+                        </div>
+                       
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="fromlocation" placeholder="From Location" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="tolocation" placeholder="To Location" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="amount" placeholder="Amount" >
+                        </div>
+                        
+                    </div>
+                    <div class="row marbtm10 martop20">
+                       
+                        <div class="col-sm-3">
+                            <select class="form-control" formControlName="status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="row customrow">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px;" [style.background-color]="theme">
+                            Submit
+                        </button>
+                    </div>
+                   
+                </form>
+                <div class="row customrow">
+                    <p class="instructionforclicktxt">*Click table row for Edit Pass Type Details </p>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                   
+                                  
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                  
+                                    <th>Pass Scheme Name</th>
+                                    <th>Pass Type Name</th>
+                                    <th>Duration</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Update By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of allfairdetailslocationlist | paginate: { itemsPerPage: 10, currentPage: p }" (click)="editformfieldupdate(item);">
+                                   
+                                   
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                   
+                                    <td>{{item.passschemename}}</td>
+                                    <td>{{item.passtypename}}</td>
+                                    <td>{{item.duration}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td>{{item.updateby}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationdiv">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    
+<router-outlet></router-outlet>
+    
+    

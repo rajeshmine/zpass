@@ -1,0 +1,287 @@
+<div class="container-fluid">
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a data-toggle="pill" href="#Addcounter">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+                    Add counter
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#Viewcounter">
+                    <i class="fa fa-table" aria-hidden="true"></i> 
+                    View Counter
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#Editcounter">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+                    Edit Counter
+                </a>
+            </li>
+        </ul>
+        <!-- ADD COUNTER START-->
+        <div class="tab-content">
+            <div id="Addcounter" class="tab-pane fade in active">
+                
+                <div class="row" style="margin: 0">
+                    <p class="headingtxttabcontent" [style.color]="theme" >ADD COUNTER</p>
+                </div>
+                <br/>
+                <form [formGroup]="AddcounterForm">
+
+                    <div class="row">
+
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <label>State Name</label>
+                            <input type="text" class="form-control"  placeholder="Choose State Name" formControlName="statename" (click)="statelistdivopen()" readonly>
+                            <div *ngIf="statelist && role!=='Admin'  && role!=='SubAdmin'">
+                                <div class="dropdownlistdiv" *ngIf="statelistdiv&&statelist.length>0  ">
+                                    <input type="text"  class="form-control" formControlName="searchstate" placeholder="Search State Name" [(ngModel)]="term1">
+                                    <div class="dropdownscroll">
+                                        <div class="dropdowndiv" *ngFor="let item of statelist | filter:term1">
+    
+                                            <div (click)="setstate(item);">
+                                                {{item.statename}}
+                                            </div>
+                                        </div>
+                                    </div>								
+                                </div>
+                            </div>                            
+                        </div>
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <label>Corporation Name</label>                                    
+							<input type="text" class="form-control"  placeholder="Choose Corporation Name" formControlName="corporationname" (click)="corporationlistopen()" readonly>                                 
+							<div class="dropdownlistdiv" *ngIf="corporationlistdropdown&&AddcounterForm.value.statename != null && role!=='SubAdmin' ">
+                                <input type="text" class="form-control" formControlName="searchcorporation" placeholder="Search Corporation Name" [(ngModel)]="term3">
+									<div class="dropdownscroll">
+										<div *ngFor="let item of corporationlist | filter:term3">
+											<div  class="dropdowndiv" *ngIf="AddcounterForm.value.statename == item.statename">
+												<div (click)="updatecorportion(item);">
+													{{item.corporationname}}
+												</div>
+																	
+											</div>
+										</div>
+									</div>                                                                        
+                            </div>
+						</div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <label>City Name</label>                                
+                            <input type="text" class="form-control"  placeholder="Choose City Name" formControlName="cityname" (click)="citylistopen()" readonly>
+                            <div class="dropdownlistdiv" *ngIf="citylistdropdown&& AddcounterForm.value.corporationname != null  && role!=='SubAdmin' ">
+                                <input type="text"  class="form-control" formControlName="searchcity" placeholder="Search City Name" [(ngModel)]="term2">
+                                <div class="dropdownscroll">
+                                    <div *ngFor="let item of citylist | filter:term2" >
+                                        <div  class="dropdowndiv" *ngIf="AddcounterForm.value.statename == item.statename">
+                                            <div (click)="updatecityfield(item);">
+                                                {{item.cityname}}
+                                            </div>
+                                        </div>										
+                                    </div>
+                                </div>									
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <label>Area Name</label>                                
+                            <input type="text" class="form-control"  placeholder="Choose Area Name" formControlName="areaname" (click)="arealistopen()" readonly>
+                            <div class="dropdownlistdiv" *ngIf="arealistdropdown&& AddcounterForm.value.cityname != null ">
+                                <input type="text"  class="form-control" formControlName="searchcity" placeholder="Search Area Name" [(ngModel)]="term3">
+                                <div class="dropdownscroll">
+                                    <div *ngFor="let item of arealist | filter:term3" >
+                                        <div  class="dropdowndiv" *ngIf="AddcounterForm.value.statename == item.statename">
+                                            <div (click)="updateareafield(item);">
+                                                {{item.areaname}}
+                                            </div>
+                                        </div>										
+                                    </div>
+                                </div>									
+                            </div>
+						</div>
+                    </div>
+                    <br/>
+                    <div class="row">
+
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+
+                            <label>Counter Code</label>                                   
+                            <input type="text" class="form-control"  formControlName="countercode" placeholder="Enter Counter Code">    
+
+
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+
+                            <label>Counter Name</label>                                   
+                            <input type="text" class="form-control"  formControlName="countername" placeholder="Enter Counter Name">    
+
+                            
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" (click)="addepasscounter();" [style.background-color]="theme">
+                                    ADD COUNTER
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </form>
+                <p class="ortxt"><span class="orspan card" [style.color]="theme">OR</span></p>
+                <div class="row customrow">
+                    <p class="headingtxttabcontent" [style.color]="theme">EXCEL FILE UPLOAD</p>
+                    <p class="instructionforclicktxt">*Click Excel image to Download Format then Fill Data then Upload Your Data's</p>
+                </div>
+                <div class="row customrow">
+                    <div class="col-sm-3">
+                        <a href="../../../assets/excel/addcounter.xlsx" download>
+                            <img src="../../../assets/images/excel.png" style="width:100px;">
+                            <i class="material-icons downloadiconstyle card"> get_app </i>
+                        </a>
+                       
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="file" class="form-control" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx"  style="margin:15px !important;" >
+                    </div>
+                   <div class="col-sm-3">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px !important;"  (click)="Upload()" [style.background-color]="theme">
+                            Upload
+                        </button>
+                   </div>
+                   
+                </div>
+               
+            
+            </div>
+            <!-- VIEW COUNTER START-->
+            <div id="Viewcounter" class="tab-pane fade">
+                <div class="row" style="margin: 0">
+                    <p class="headingtxttabcontent" [style.color]="theme" >VIEW COUNTER</p>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th>Country Code</th>
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                    <th>Area Code</th>
+                                    <th>Area Name</th>
+                                    <th>Counter Code</th>
+                                    <th>Counter Name</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of viewcounter | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr>
+                                    <td>{{item.countrycode}}</td>
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                    <td>{{item.areacode}}</td>
+                                    <td>{{item.areaname}}</td>
+                                    <td>{{item.countercode}}</td>
+                                    <td>{{item.countername}}</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="text-align: right;">
+
+                        <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+
+                    </div>
+                </div>
+            </div>
+            <!-- EDIT COUNTER START-->
+            <div id="Editcounter" class="tab-pane fade">
+                <div class="row" style="margin: 0">
+                    <p class="headingtxttabcontent" [style.color]="theme">EDIT COUNTER</p>
+                </div>
+                <br/>
+                <form [formGroup]="EditCounterForm">
+
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <div class="form-group">
+                                <label>Counter Code</label>
+                                <input type="text" class="form-control" formControlName="countercode">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <div class="form-group">
+                                <label>Counter Name</label>
+                                <input type="text" class="form-control" formControlName="countername">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select  class="form-control" formControlName="status" >
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>  
+
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " [style.background-color]="theme" (click)="editepasscounter();">
+                                    EDIT COUNTER
+                            </button>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12"></div>
+                    </div>
+                </form>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                    <th>Area Name</th>
+                                    <th>Counter Code</th>
+                                    <th>Counter Name</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of viewcounter | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr (click)="editcounter(item);" style="cursor: pointer;">
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                    <td>{{item.areaname}}</td>
+                                    <td>{{item.countercode}}</td>
+                                    <td>{{item.countername}}</td>
+                                    <td *ngIf='item.status=="Active"'> Active</td>
+                                    <td *ngIf='item.status=="InActive"'> InActive</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="text-align: right;">
+
+                        <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
+    
+    

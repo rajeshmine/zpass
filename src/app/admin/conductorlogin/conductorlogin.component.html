@@ -1,0 +1,241 @@
+<div class="container-fluid">
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a data-toggle="pill" href="#busservicecreate">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+                    Register Conductor  Details
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#busservicelist">
+                    <i class="fa fa-table" aria-hidden="true"></i> 
+                    View Conductor Details
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#busserviceedit">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+                    Edit/Update Conductor Details
+                </a>
+            </li>
+          
+        </ul>
+          
+        <div class="tab-content">
+
+            <div id="busservicecreate" class="tab-pane fade in active">
+                <form autocomplete="off"  [formGroup]="addconductorloginform" (ngSubmit)="epassuserregister();">
+                    <div class="row customrow">
+                        <p class="headingtxttabcontent" [style.color]="theme">REGISTER CONDUCTOR DETAILS</p>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="statename" placeholder="State Name" (click)="statelistopen();" readonly> 
+                            <div *ngIf="epassstatelist  && role !== 'Counter' &&  role !== 'Admin' &&  role !== 'SubAdmin' ">
+                                <div class="dropdownlistdiv" *ngIf="statelistdropdown&&epassstatelist.length>0">
+                                    <input type="text" class="form-control" placeholder="Search State"  [(ngModel)]="term" formControlName="searchstate">
+                                    <div class="dropdownscroll">
+                                        <div class="dropdowndiv" *ngFor="let item of epassstatelist |filter:term" (click)="updatestatefield(item)">
+                                        {{item.statename}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                       
+                  
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationcode" placeholder="Corporation Code" (click)="corporationlistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="corporationlistdropdown
+                            &&addconductorloginform.value.statename != ''  && role !== 'Counter' &&  role !== 'SubAdmin'">
+                                <input type="text" class="form-control" placeholder="Search Corporation"  [(ngModel)]="term1" formControlName="searchcorporation">
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of epasscorporationlist |filter:term1">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename">
+                                            <div  (click)="updatecorporationfield(item)" >
+                                                {{item.corporationcode}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="cityname" placeholder="City Name" (click)="citylistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="citylistdropdown&&addconductorloginform.value.corporationcode != ''  && role !== 'Counter' &&  role !== 'SubAdmin' ">
+                                <input type="text" class="form-control" placeholder="Search City"  [(ngModel)]="term2" formControlName="searchcity">
+                                <div class="dropdownscroll">
+                                    <div  *ngFor="let item of epasscitylist |filter:term2">
+                                        <div class="dropdowndiv" *ngIf="item.statename==selstatename && item.corporationcode==selcorporationcode">
+                                            <div  (click)="updatecityfield(item)" >
+                                                {{item.cityname}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                        </div>
+                   
+                    </div>
+                    <div class="row marbtm10 martop20">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email Address">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="mobileno" placeholder="Mobile Number">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="password" placeholder="Password" readonly>
+                        </div>
+                    </div>
+                   
+                    <div class="row customrow">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" [style.background-color]="theme" style="margin:15px;">Submit</button>
+                    </div>
+                </form> 
+                        
+            </div>
+
+            <div id="busservicelist" class="tab-pane fade">
+                <div class="row customrow">
+                    <p class="headingtxttabcontent"  [style.color]="theme" >CONDUCTOR DETAILS</p>
+                </div>
+                <div class="row customrow">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                   
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                    <th>Name</th>
+                                    <th>Email Address</th>
+                                    <th>Mobile Number</th>                                    
+                                    <th>Status</th>
+                                    <th>Update By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of alluserlist | paginate: { itemsPerPage: 10, currentPage: p }">
+                                    <td>{{item.userid}}</td>
+                                   
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.mobileno}}</td>                                   
+                                    <td>{{item.status}}</td>
+                                    <td>{{item.updateby}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationdiv">
+                            <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="busserviceedit" class="tab-pane fade">
+                    <div class="row customrow">
+                            <p class="headingtxttabcontent"  [style.color]="theme" >EDIT / UPDATE CONDUCTOR DETAILS</p>
+                    </div>
+                    <form autocomplete="off"  [formGroup]="editconductorloginform" (ngSubmit)="edituser();" id="editform" style="display:none">
+                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="statename" placeholder="State Name" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationname" placeholder="Corporation Name" readonly>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="cityname" placeholder="City Name" readonly>
+                        </div>
+                       
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="row marbtm10 martop20">
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email Address">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="mobileno" placeholder="Mobile Number">
+                        </div>
+                        
+                        <div class="col-sm-3">
+                            <select class="form-control" formControlName="status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                    <div class="row customrow">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" [style.background-color]="theme"  style="margin:15px;">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+
+                <div class="row customrow">
+                    <p class="instructionforclicktxt">*Click table row for Edit Bus Service Details </p>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                   
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                    <th>Name</th>
+                                    <th>Email Address</th>
+                                    <th>Mobile Number</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of alluserlist | paginate: { itemsPerPage: 10, currentPage: p }" (click)="editformfieldupdate(item);">
+                                    <td>{{item.userid}}</td>
+                                   
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.email}}</td>
+                                    <td>{{item.mobileno}}</td>
+                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationdiv">
+                            <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    
+<router-outlet></router-outlet>
+    

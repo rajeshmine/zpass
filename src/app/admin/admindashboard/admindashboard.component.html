@@ -1,0 +1,275 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+            <br/>
+            <div class="dbcard">
+                <p style="text-transform: uppercase;"> E-SMART PASS / {{role}}</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row" >
+        <div *ngFor="let item of rights">
+
+        
+        <div *ngIf="item =='All' || item =='Add States' "  class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+            <br/>
+            <div class="inlinecard" routerLink="./../../addstate">
+               
+
+                <img src="../../../assets/images/addstate.svg" />
+                <p>ADD STATE</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div  *ngIf="item=='All' ||  item=='Add Corporation' "  class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+            <br/>
+            <div class="inlinecard"  routerLink="./../../addcorporation">
+                
+
+                <img src="../../../assets/images/addcorporation.png" />
+                <p>ADD CORPORATION</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div  *ngIf="item=='All' ||  item=='Add Cities' " class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+            <br/>
+            <div class="inlinecard"  routerLink="./../../addcity">
+                
+
+                <img src="../../../assets/images/addcity.svg" />
+                <p>ADD CITY</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div  *ngIf="item=='All' ||  item=='Add Area' "  class="col-sm-3 col-md-3 col-lg-3 col-xs-12"  >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../addarea">
+                
+
+                <img src="../../../assets/images/addarea.png" />
+                <p>ADD AREA</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div  *ngIf="item=='All' ||  item=='Add Counter' "  class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../addcounter">
+                
+
+                <img src="../../../assets/images/addcounter.svg" />
+                <p>ADD COUNTER</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div  *ngIf="item=='All'" class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../sadminlogin">
+               
+
+                <img src="../../../assets/images/sadminlogin.svg" />
+                <p>SADMIN LOGIN</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div   *ngIf="item=='All' ||  item=='Admin Login' " class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../adminlogin">
+                
+
+                <img src="../../../assets/images/adminlogin.svg" />
+                <p>ADMIN LOGIN</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div   *ngIf="item=='All' ||  item=='Sub-Admin Login' " class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../subadminlogin">
+                
+                <img src="../../../assets/images/subadmin.png" />
+                <p>SUB ADMIN LOGIN</p>
+
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div  *ngIf="item=='All' ||  item=='Counter Login' " class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+            <br/>
+            <div class="inlinecard"  routerLink="./../../counterlogin">
+                
+
+                <img src="../../../assets/images/counterlogin.svg" />
+                <p>COUNTER LOGIN</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div  *ngIf="item=='All' ||  item=='Conductor Login' "  class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+            <br/>
+            <div class="inlinecard"  routerLink="./../../conductorlogin">
+                
+
+                <img src="../../../assets/images/conductorlogin.svg" />
+                <p>CONDUCTOR LOGIN</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div *ngIf="item=='All' ||  item=='Bus Service' " class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../busservice">
+               
+
+                <img src="../../../assets/images/busservice.svg" />
+                <p>BUS SERVICE</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div  *ngIf="item=='All' ||  item=='Pass Scheme' " class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../passscheme">
+               
+
+                <img src="../../../assets/images/passscheme.svg" />
+                <p>PASS SCHEME</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        
+        <div *ngIf="item=='All' ||  item=='Pass Type' "  class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../passtype">
+                
+
+                <img src="../../../assets/images/passtype.svg" />
+                <p>PASS TYPE</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        
+        <div  *ngIf="item=='All' ||  item=='Fair Details City' " class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >
+            <br/>
+            <div class="inlinecard"  routerLink="./../../fairdetailscity">
+               
+
+                <img src="../../../assets/images/fairdetailscity.svg" />
+                <p>FARE DETAILS (CITY)</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+        <div  *ngIf="item=='All' ||  item=='Fair Details Location' "  class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+            <br/>
+            <div class="inlinecard"  routerLink="./../../fairdetailslocation">
+                
+
+                <img src="../../../assets/images/fairdetailslocation.svg" />
+                <p>FARE DETAILS (LOCATION)</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+        <div  class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+            <br/>
+            <div class="inlinecard"  routerLink="./../../adminprofile">
+              
+
+                <img src="../../../assets/images/profile.svg" />
+                <p>PROFILE</p>
+                <div>
+                    <i class="fas fa-arrow-right goicon"></i>
+                </div>
+            </div>
+
+
+        </div>
+      
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<router-outlet></router-outlet>  

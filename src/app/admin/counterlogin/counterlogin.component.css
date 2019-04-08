@@ -1,0 +1,122 @@
+   
+.card{
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.nav{
+	border: 1px solid #ddd;
+    margin: 25px;
+    background: #fff;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	color:#03A9F4;
+    background:transparent;
+    font-weight:500;
+}
+
+.nav-pills>li>a {
+    border-radius: 0px;
+	font-size:12px;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 7px 11px;
+	color:#999;
+	font-weight:400;
+}
+
+.tab-content>.tab-pane {
+	border: 1px solid #ddd;
+    padding: 10px;
+    margin: 25px;
+	background-color:#fff;
+}
+
+.material-icons{
+	vertical-align: middle !important;
+}
+
+.form-control{
+	border-radius:0;
+	border:1px solid #ddd;
+	box-shadow:none !important;
+	outline: none !important; 
+	
+}
+
+.form-control :active,.searchinput :hover,.searchinput :focus{
+	box-shadow:none !important; 
+	outline: none !important;
+}
+
+.mdl-button{
+    margin:24px !important;
+}
+
+.headingtxttabcontent{
+    font-weight: 500;
+    color: rgb(255,64,129);
+    padding: 10px 10px 20px 10px;
+}
+.rightslabel{
+    padding: 10px;
+    font-weight:400;
+    font-size:13px;
+}
+
+.mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab {
+    color: rgb(255,255,255)!important;
+    background-color: rgb(255,64,129)!important;
+}
+
+table.table td, table.table th {
+    padding-top: 1.1rem;
+    padding-bottom: 1rem;
+}
+
+.blue-grey.lighten-4 {
+    background-color: #cfd8dc!important;
+}
+
+.mycard {
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.citylist {
+    position: absolute;
+    width: 87%;
+    padding-top: 10px;
+    z-index: 1;
+    min-height: 246px;
+}
+
+.dropdownlistdiv {
+    Width: 87%;
+    max-height: 200px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    position: absolute;
+    z-index: 1;
+    overflow: auto;
+    overflow: hidden;
+    margin-top: 2px;
+}
+
+.checkboxlabel{
+    font-weight: 400;
+    font-size:14px;
+}
+
+.instructionforclicktxt{
+	padding: 10px;
+    color: #03A9F4;
+    font-weight: 500;
+}
+
+.paginationdiv{
+	text-align: right;
+}

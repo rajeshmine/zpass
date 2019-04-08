@@ -1,0 +1,71 @@
+
+<br/><br/><br/><br/>
+<div class="row mar0">
+    <div class="col-sm-1">
+
+    </div>
+    <div class="col-sm-10">
+        <div class="row card mar0 pad15">
+            <img class="profileimg" src="https://www.intelligentdispensingsolutions.com/wp-content/uploads/if_jee-75_2180662.png">
+            <br/>
+            <div class="col-sm-6">
+                <p class="headingtxt" [style.color]="theme">Profile</p>
+                <div class="row mar0 pad10">
+                    <p>User ID</p>
+                    <input type="text" class="form-control" value="{{userid}}" readonly>
+                </div>
+               
+                <div class="row mar0 pad10">
+                    <p>Name</p>
+                    <input type="text" class="form-control" value="{{name}}" readonly>
+                </div>
+                <div class="row mar0 pad10">
+                    <p>Email Addess</p>
+                    <input type="text" class="form-control" value="{{email}}" readonly>
+                </div>
+                <div class="row mar0 pad10">
+                    <p>Mobile Number</p>
+                    <input type="text" class="form-control" value="{{mobileno}}" readonly>
+                </div>
+                <div class="row mar0 pad10">
+                    <p>Role</p>
+                    <input type="text" class="form-control" value="{{role}}" readonly>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <p class="headingtxt" [style.color]="theme">Change Password</p>
+                <form class="pad15" autocomplete="off"[formGroup]="changepswform" >
+                    <div class="col-md-12 pad10"> 
+                        <div class="col-md-6">
+                            <p class="innerrightlftp">Create Password </p>
+                        </div>
+                        <div class="col-md-6">
+                            <input type='password' class="form-control" formControlName="createpsw" >
+                        </div>
+                    </div>
+                    <div class="col-md-12 pad10"> 
+                        <div class="col-md-6">
+                            <p class="innerrightlftp">Confirm Password</p>
+                        </div>
+                        <div class="col-md-6">
+                            <input type='password' class="form-control" formControlName="confirmpsw">   
+                        </div>
+                    </div>
+                    <div class="col-md-12"> 
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right marrht5px"  [style.background-color]="theme" (click)="epassforgotpassword();" >
+                            Submit
+                        </button>
+                        
+                         
+                    </div><br><br>
+                </form>
+            </div>
+           
+        </div>
+    </div>
+    <div class="col-sm-1">
+
+    </div>
+</div>
+
+<router-outlet></router-outlet>  

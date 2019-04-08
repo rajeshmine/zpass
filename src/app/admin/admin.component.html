@@ -1,0 +1,200 @@
+
+<i class="material-icons theamsettings flashit collapsed" data-toggle="collapse" data-target="#themedivcolapse" title="Theme" >settings</i>
+<div class="theamdiv animated bounce collapse" id="themedivcolapse">
+   
+    <i class="material-icons backarrowstyle" data-toggle="collapse" data-target="#themedivcolapse" title="Back">arrow_forward</i>
+    <span class="titleclr">Theam Colors </span>
+    <hr>
+    <div class="colorrow">
+        <div class="colorstyle" (click)="testfun(colordiv.style.backgroundColor)" #colordiv [style.background-color]="Colors.colors.Orange"> </div>
+        <div class="colorstyle"  (click)="testfun(colordiv1.style.backgroundColor)" #colordiv1 [style.background-color]="Colors.colors.Amber"> </div>
+        <div class="colorstyle"  (click)="testfun(colordiv2.style.backgroundColor)" #colordiv2  [style.background-color]="Colors.colors.Yellow"> </div>
+        <div class="colorstyle"  (click)="testfun(colordiv3.style.backgroundColor)" #colordiv3  [style.background-color]="Colors.colors.Lime"> </div>
+        <div class="colorstyle"  (click)="testfun(colordiv4.style.backgroundColor)" #colordiv4  [style.background-color]="Colors.colors.LightGreen" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv5.style.backgroundColor)" #colordiv5  [style.background-color]="Colors.colors.Teal" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv6.style.backgroundColor)" #colordiv6 [style.background-color]="Colors.colors.Cyan" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv7.style.backgroundColor)" #colordiv7 [style.background-color]="Colors.colors.LightBlue" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv8.style.backgroundColor)" #colordiv8 [style.background-color]="Colors.colors.Blue" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv9.style.backgroundColor)" #colordiv9 [style.background-color]="Colors.colors.Indigo" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv10.style.backgroundColor)" #colordiv10 [style.background-color]="Colors.colors.DeepPurple" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv11.style.backgroundColor)" #colordiv11 [style.background-color]="Colors.colors.Purple" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv12.style.backgroundColor)" #colordiv12 [style.background-color]="Colors.colors.Pink" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv13.style.backgroundColor)" #colordiv13 [style.background-color]="Colors.colors.Red" > </div>
+        <div class="colorstyle"  (click)="testfun(colordiv14.style.backgroundColor)" #colordiv14 [style.background-color]="Colors.colors.DeepOrange" > </div>
+    </div>
+    
+</div>
+<!-- ------------------------ -->
+<div class="nav-side-menu" [style.background-color]="themecolor" >
+    <div class="brand" [style.background-color]="themecolor" >E-SMART PASS</div>
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+  
+        <div class="menu-list">
+  
+            <ul id="menu-content" class="menu-content collapse out">
+                <li  routerLinkActive="active" routerLink="admindashboard">
+                  <a>
+                    <i class="fas fa-home"></i>
+                    Home
+                  </a>
+                </li>
+                
+                <div *ngFor="let item of rights">
+                    <li *ngIf="item =='All' || item =='Add States' " routerLinkActive="active" routerLink="addstate">
+                        <a>
+                            <i class="fas fa-plus"></i>
+                            Add State
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Add Corporation' " routerLinkActive="active" routerLink="addcorporation">
+                        <a >
+                            <i class="fas fa-plus-square"></i>
+                            Add Corporation
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Add Cities' " routerLinkActive="active" routerLink="addcity">
+                        <a >
+                            <i class="far fa-plus-square"></i>
+                            Add City
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Add Area' " routerLinkActive="active" routerLink="addarea">
+                        <a>
+                            <i class="fas fa-plus-circle"></i>
+                            Add Area
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Add Counter' " routerLinkActive="active" routerLink="addcounter">
+                        <a>
+                            <i class="fas fa-plus-circle"></i>
+                            Add Counter
+                        </a>
+                    </li>
+                </div>
+                <div *ngFor="let item of rights">
+                    <li  *ngIf="item=='All'" routerLinkActive="active" routerLink="sadminlogin">
+                        <a >
+                            <i class="far fa-user-circle"></i>
+                            SAdmin Login
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Admin Login' " routerLinkActive="active" routerLink="adminlogin">
+                        <a>
+                            <i class="far fa-user"></i>
+                            Admin Login
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Sub-Admin Login' " routerLinkActive="active" routerLink="subadminlogin">
+                        <a>
+                            <i class="far fa-user"></i>
+                            Sub-Admin Login
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Counter Login' " routerLinkActive="active" routerLink="counterlogin" >
+                        <a>
+                            <i class="fas fa-user"></i>
+                            Counter Login
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Conductor Login' " routerLinkActive="active"  routerLink="conductorlogin">
+                        <a>
+                            <i class="fas fa-user"></i>
+                            Conductor Login
+                        </a>
+                    </li>
+                </div>
+                <div *ngFor="let item of rights">
+                    <li  *ngIf="item=='All' ||  item=='Bus Service' " routerLinkActive="active" routerLink="busservice">
+                        <a>
+                            <i class="fas fa-bus"></i>
+                            Bus Services
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Pass Scheme' " routerLinkActive="active" routerLink="passscheme">
+                        <a>
+                            <i class="fas fa-paste"></i>
+                            Pass Schemes
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Pass Type' " routerLinkActive="active" routerLink="passtype">
+                        <a>
+                            <i class="fas fa-paste"></i>
+                            Pass Types
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Fair Details City' " routerLinkActive="active" routerLink="fairdetailscity">
+                        <a>
+                            <i class="fab  fa-firstdraft"></i>
+                            Fare Details City
+                        </a>
+                    </li>
+                    <li  *ngIf="item=='All' ||  item=='Fair Details Location' " routerLinkActive="active" routerLink="fairdetailslocation">
+                        <a>
+                            <i class="fab  fa-firstdraft"></i>
+                            Fare Details Location
+                        </a>
+                    </li>
+                </div>
+
+               
+
+              
+                <li  routerLinkActive="active" routerLink="adminprofile">
+                  <a>
+                        <i class="far fa-user"></i>
+                        Profile
+                  </a>
+                </li>
+                <li (click)="logout();">
+                    <a >
+                        <i class="fas fa-power-off"></i> 
+                        Logout
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+</div>
+<div class="maincontent">
+    <div class="container-fluid" style='position: sticky;top:0;z-index: 50;'>
+        <div class="row searchrow">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                <!-- <i class="fa fa-search searchicon" aria-hidden="true"></i>
+                <input type="text" class="form-control searchinput" placeholder="Search"> -->
+            </div>
+            
+            <div class="col-sm-4 col-xs-6 col-md-4 col-lg-4">
+                
+                <span *ngIf="role=='Master'" class="rolenme" [style.color]="themecolor">
+                        <i class="fas  fa-crown fas1"></i>
+                        {{role}}
+                </span>
+                <span *ngIf="role=='SubAdmin'" class="rolenme" [style.color]="themecolor">
+                        <i class="fab fa-jedi-order fab1"></i>
+                        {{role}}
+                </span>
+                <span *ngIf="role=='Admin'" class="rolenme" [style.color]="themecolor">
+                        <i class="fab fa-galactic-republic fab1"></i>
+                        {{role}}
+                </span>
+                <span *ngIf="role=='SAdmin'" class="rolenme" [style.color]="themecolor">
+                        <i class="fab fa-empire fab1"></i>
+                        {{role}}
+                </span>
+                <span *ngIf="role=='Counter'" class="rolenme" [style.color]="themecolor">
+                        <i class="fab fa-rebel fab1"></i>
+                        {{role}}
+                </span>
+            </div>
+            <div class="col-sm-4 col-xs-6 col-md-4 col-lg-4"  style="text-align: right;">
+                <span class="profilenme">Welcome , {{name}}</span>
+                <img *ngIf="role=='Master'" class="profileimg" src="http://mannlawofficellc.com/wp-content/uploads/2017/03/blank-avatar.png">
+                <img *ngIf="role=='SAdmin'" class="profileimg" src="http://mannlawofficellc.com/wp-content/uploads/2017/03/blank-avatar.png">
+                <img *ngIf="role=='Admin'" class="profileimg" src="http://mannlawofficellc.com/wp-content/uploads/2017/03/blank-avatar.png">
+                <img *ngIf="role=='SubAdmin'" class="profileimg" src="http://mannlawofficellc.com/wp-content/uploads/2017/03/blank-avatar.png">
+                <img *ngIf="role=='Counter'" class="profileimg" src="http://mannlawofficellc.com/wp-content/uploads/2017/03/blank-avatar.png">
+            </div>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+</div>

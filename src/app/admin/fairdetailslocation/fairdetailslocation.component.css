@@ -1,0 +1,111 @@
+
+.card{
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.nav{
+	border: 1px solid #ddd;
+    margin: 25px;
+    background: #fff;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	color:#03A9F4;
+    background:transparent;
+    font-weight:500;
+}
+.nav-pills>li>a {
+    border-radius: 0px;
+	font-size:13px;
+}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 7px 11px;
+	color:#999;
+	font-weight:400;
+}
+.tab-content>.tab-pane {
+	border: 1px solid #ddd;
+    padding: 10px;
+    margin: 25px;
+	background-color:#fff;
+}
+
+.material-icons{
+	vertical-align: middle !important;
+}
+.form-control{
+	border-radius:0;
+	border:1px solid #ddd;
+	box-shadow:none !important;
+	outline: none !important; 
+	
+}
+.form-control :active,.searchinput :hover,.searchinput :focus{
+	box-shadow:none !important; 
+	outline: none !important;
+}
+
+.headingtxttabcontent{
+    color:#ff4080;
+	font-weight: 500;
+	padding: 10px 10px 20px 10px;
+}
+.inputheadtxt{
+	line-height: 40px;
+	font-size: 14px;
+	color: #666;
+	font-weight: 500;
+	text-align: right;
+}
+.instructionforclicktxt{
+	padding: 10px;
+    color: #03A9F4;
+    font-weight: 500;
+}
+.paginationdiv{
+	text-align: right;
+}
+
+.downloadiconstyle{
+	border-radius: 50%;
+    background: #fffffff5;
+    padding: 5px;
+    cursor: pointer;
+    position: absolute;
+    left: 34%;
+    top: 55%;
+    color:#2196F3;
+}
+.ortxt{
+	text-align: center;
+    color: #FF5722;
+    font-weight: 500;
+}
+.orspan{
+	border-radius: 100%;
+    background: #fff;
+    padding: 10px;
+}
+.marbtm10{
+	margin-bottom: 10px;
+}
+.martop10{
+	margin-top:10px;
+}
+.martop20{
+	margin-top:20px;
+}
+
+.checkboxlabel{
+    font-weight: 400;
+    font-size:14px;
+}
+.nodetailsfound{
+	position: absolute;
+   
+    margin-left: -100px;
+    margin-top: 88px;
+    font-size: 18px;
+    font-weight: 500;
+    color: red;
+}

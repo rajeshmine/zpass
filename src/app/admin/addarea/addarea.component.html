@@ -1,0 +1,262 @@
+<div class="container-fluid">
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a data-toggle="pill" href="#Addarea">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+                    Add Area
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#Viewarea">
+                        <i class="fa fa-table" aria-hidden="true"></i> 
+                    View Area
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#Editarea">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+                    Edit Area
+                </a>
+            </li>
+        </ul>
+        <!-- ADD STATE START-->
+        <div class="tab-content">
+            <div id="Addarea" class="tab-pane fade in active">
+                
+                <div class="row" style="margin: 0">
+                    <p class="headingtxttabcontent" [style.color]="theme" >ADD AREA</p>
+                </div>
+                <br/>
+                <form [formGroup]="AddareaForm">
+
+                    <div class="row">
+
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                            <label>State Name</label>
+                            <input type="text" class="form-control"  placeholder="Choose State Name" formControlName="statename" (click)="statelistdivopen()" readonly>
+                            <div *ngIf="statelist && role!=='SubAdmin' && role!=='Admin'">
+                                <div class="dropdownlistdiv" *ngIf="statelistdiv&&statelist.length>0">
+                                    <input type="text"  class="form-control" formControlName="searchstate" placeholder="Search State Name" [(ngModel)]="term1">
+                                    <div class="dropdownscroll">
+                                        <div class="dropdowndiv" *ngFor="let item of statelist | filter:term1">    
+                                            <div (click)="setstate(item);">
+                                                {{item.statename}}
+                                            </div>
+                                        </div>
+                                    </div>								
+                                </div>
+                            </div>                            
+                        </div>
+						<div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                            <label>Corporation Name</label>                                    
+							<input type="text" class="form-control"  placeholder="Choose Corporation Name" formControlName="corporationname" (click)="corporationlistopen()" readonly>                                 
+							<div class="dropdownlistdiv" *ngIf="corporationlistdropdown&&AddareaForm.value.statename != null  && role!=='SubAdmin'">
+                                <input type="text" class="form-control" formControlName="searchcorporation" placeholder="Search Corporation Name" [(ngModel)]="term3">
+									<div class="dropdownscroll">
+										<div *ngFor="let item of corporationlist | filter:term3">
+											<div  class="dropdowndiv" *ngIf="AddareaForm.value.statename == item.statename">
+												<div (click)="updatecorportion(item);">
+													{{item.corporationname}}
+												</div>
+																	
+											</div>
+										</div>
+									</div>                                                                        
+                            </div>
+						</div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                            <label>City Name</label>                                
+                            <input type="text" class="form-control"  placeholder="Choose City Name" formControlName="cityname" (click)="citylistopen()" readonly>
+                            <div class="dropdownlistdiv" *ngIf="citylistdropdown&& AddareaForm.value.corporationname != null && role!=='SubAdmin' ">
+                                <input type="text"  class="form-control" formControlName="searchcity" placeholder="Search City Name" [(ngModel)]="term2">
+                                <div class="dropdownscroll">
+                                    <div *ngFor="let item of citylist | filter:term2" >
+                                        <div  class="dropdowndiv" *ngIf="AddareaForm.value.statename == item.statename">
+                                            <div (click)="updatecityfield(item);">
+                                                {{item.cityname}}
+                                            </div>
+                                        </div>										
+                                    </div>
+                                </div>									
+                            </div>
+						</div>
+                    </div>
+                    <br/>
+                    <div class="row">
+
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+
+                             <label>Area Code</label>                                   
+                             <input type="text" class="form-control"  formControlName="areacode" placeholder="Enter Area Code">    
+
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+
+                            
+                             <label>Area Name</label>                                   
+                             <input type="text" class="form-control"  formControlName="areaname" placeholder="Enter Area Name">  
+
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" (click)="addepassarea();" [style.background-color]="theme">
+                                    ADD AREA
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+                <p class="ortxt"><span class="orspan card" [style.color]="theme">OR</span></p>
+                <div class="row customrow">
+                    <p class="headingtxttabcontent" [style.color]="theme">EXCEL FILE UPLOAD</p>
+                    <p class="instructionforclicktxt">*Click Excel image to Download Format then Fill Data then Upload Your Data's</p>
+                </div>
+                <div class="row customrow">
+                    <div class="col-sm-3">
+                        <a href="../../../assets/excel/addarea.xlsx" download>
+                            <img src="../../../assets/images/excel.png" style="width:100px;">
+                            <i class="material-icons downloadiconstyle card"> get_app </i>
+                        </a>
+                       
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="file" class="form-control" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx"  style="margin:15px !important;" >
+                    </div>
+                   <div class="col-sm-3">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px !important;"  (click)="Upload()" [style.background-color]="theme">
+                            Upload
+                        </button>
+                   </div>
+                   
+                </div>
+               
+            </div>
+            <!-- VIEW STATE START-->
+            <div id="Viewarea" class="tab-pane fade">
+                <div class="row" style="margin: 0">
+                    <p class="headingtxttabcontent"[style.color]="theme" >VIEW AREA</p>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                        <table  class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Country Code</th>
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                    <th>Area Code</th>
+                                    <th>Area Name</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of viewarea | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr>
+                                    <td>{{item.countrycode}}</td>
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                    <td>{{item.areacode}}</td>
+                                    <td>{{item.areaname}}</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="text-align: right;">
+
+                        <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+
+                    </div>
+                </div>
+            </div>
+            <!-- EDIT STATE START-->
+            <div id="Editarea" class="tab-pane fade">
+                <div class="row" style="margin: 0">
+                    <p class="headingtxttabcontent" [style.color]="theme">EDIT AREA</p>
+                </div>
+                <br/>
+                <form [formGroup]="EditAreaForm">
+
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <div class="form-group">
+                                <label>Area Code</label>
+                                <input type="text" class="form-control" formControlName="areacode">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <div class="form-group">
+                                <label>Area Name</label>
+                                <input type="text" class="form-control" formControlName="areaname">
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select  class="form-control" formControlName="status" >
+                                    <option value="Active">Active</option>
+                                    <option value="InActive">InActive</option>
+                                </select>
+                            </div>  
+
+                        </div>
+                        <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " [style.background-color]="theme" (click)="editepassarea();">
+                                    EDIT AREA
+                            </button>
+                        </div>
+                        <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12"></div>
+                    </div>
+                </form>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                        <table  class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Country Code</th>
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>City Name</th>
+                                    <th>Area Code</th>
+                                    <th>Area Name</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let item of viewarea | paginate: { itemsPerPage: 5, currentPage: p }">
+                                <tr (click)="editarea(item);" style="cursor: pointer;">
+                                    <td>{{item.countrycode}}</td>
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.cityname}}</td>
+                                    <td>{{item.areacode}}</td>
+                                    <td>{{item.areaname}}</td>
+                                    <td *ngIf='item.status=="Active"'> Active</td>
+                                    <td *ngIf='item.status=="InActive"'> InActive</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="text-align: right;">
+
+                        <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
+    
+    

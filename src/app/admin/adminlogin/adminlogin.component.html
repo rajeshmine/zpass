@@ -1,0 +1,234 @@
+<div class="container-fluid">
+<div class="row">
+	<ul class="nav nav-pills">
+		<li class="active">
+			<a data-toggle="pill" href="#Admincreate">
+				<i class="fa fa-plus-circle" aria-hidden="true"></i>
+				Create Admin Login
+			</a>
+		</li>
+		<li>
+			<a data-toggle="pill" href="#Adminlist">
+				<i class="fa fa-table" aria-hidden="true"></i> 
+				View Admin List
+			</a>
+		</li> 
+		<li>
+			<a data-toggle="pill" href="#AdminEdit">
+				 <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+				 Edit Admin List
+			</a>
+		</li>  
+	</ul>
+	  
+	<div class="tab-content">
+	
+		<div id="Admincreate" class="tab-pane fade in active">
+			
+			<div class="row" style="margin:0;">
+				<p class="headingtxttabcontent" [style.color]="theme"> REGISTER ADMIN DETAILS</p>
+			</div>		
+			<!--  {{epassuserregisterform.value|json}} -->
+			<form  [formGroup]="epassuserregisterform">
+				<div class="row" style="margin:0;">
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<label>State Name</label>
+						<input type="text" class="form-control"  placeholder="Choose State Name" formControlName="statename" (click)="statelistopen()" readonly>
+						<div *ngIf="statelist">
+							<div class="dropdownlistdiv" *ngIf="statelistdropdown&&statelist.length>0">
+								<input type="text"  class="form-control" formControlName="searchstate" placeholder="Search State Name" [(ngModel)]="term1">
+								<div class="dropdownscroll">
+									<div class="dropdowndiv" *ngFor="let item of statelist | filter:term1">	
+										<div (click)="updatestatefield(item);">
+											{{item.statename}}
+										</div>
+									</div>
+								</div>								
+							</div>
+						</div>						
+					</div>						
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12" >   
+						<label>Name</label>                   
+					   <input type="text" class="form-control" formControlName="name" 
+					   placeholder="Enter Your Name"> 
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+							<label>E-Mail</label>   
+						<input type="text" class="form-control" formControlName="email" placeholder="Enter Your Mail"> 
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+							<label>Mobile</label>   
+						<input type="text" class="form-control" formControlName="mobileno" placeholder="Enter Your Mobile"> 
+					</div>									
+				</div><br/>
+			
+				<div class="row" style="margin:0;">
+						<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+								<label>PassWord</label>   
+							<input type="text" class="form-control" formControlName="password" placeholder="Enter Your Password" value="epass123" readonly> 
+						</div> 
+
+				</div><br/>
+				
+				<div class="row" style="margin:0;">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+						<label>Rights</label><label style="margin-left: 15px;"><input type="checkbox" [checked]="checkall" (click)="getrights();">Check All</label>
+						<div class="row">							  
+							<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12"  *ngFor="let item of rightslistarr" >
+								<label class="checkboxlabel"><input (change)="getcheckedrights($event,checkboxValue.value);"  type ="checkbox" value="{{item.RightName}}" #checkboxValue 	[checked]="item.Status"> {{item.RightName}} </label>
+							</div>							 
+						</div>	  
+					</div>    
+				</div>
+				
+				<div class="row" style="margin:0;">
+					<div class="col-sm-9 col-md-9 col-lg-9 col-xs-12" ></div>
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect " [style.background-color]="theme" (click)="epassuserregister()">Submit </button> 
+					</div>  
+				</div>
+			</form>
+		</div>
+		
+		<div id="Adminlist" class="tab-pane fade">
+			<div class="row" style="margin: 0">
+				<p class="headingtxttabcontent"[style.color]="theme" >ADMIN DETAILS</p>
+			</div> 
+					
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<tr>
+								<th>User ID</th>
+								<th>State Name</th>
+								<th>Name</th>
+								<th>E-Mail</th>
+								<th>Mobile</th>	
+								<th>Rights</th>		
+								<th>Status</th>		
+								<th>Updated By</th>				 
+							</tr>
+						</thead>
+						<tbody >
+							<tr *ngFor="let item of users | paginate: { itemsPerPage: 5, currentPage: p }">
+								<td>{{item.userid}}</td>
+								<td>{{item.statename}}</td>
+								<td>{{item.name}}</td>
+								<td>{{item.email}}</td>
+								<td>{{item.mobileno}}</td>
+								<td>{{item.rights}}</td>
+								<td>{{item.status}}</td>
+								<td>{{item.updateby}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>					
+			</div>
+			<div class="row">
+				<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12" style="text-align: right;">
+					<pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+				</div>
+			</div>
+		</div>
+
+		<div id="AdminEdit" class="tab-pane fade">                 
+			<div class="row" style="margin: 0">
+				<p class="headingtxttabcontent" [style.color]="theme">EDIT/UPDATE ADMIN DETAILS</p>
+			</div>
+		   
+			<form [formGroup]="EditAdminForm" autocomplete="off" *ngIf="EditRights.length > 0">			
+				<div class="row">
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<div class="form-group">
+							<label> State Name</label>
+							<input type="text" class="form-control" formControlName="editstate" >
+						</div>
+					</div> 
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<div class="form-group">
+							<label> Name</label>
+							<input type="text" formControlName="editname" class="form-control" >
+						</div>
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<div class="form-group">
+							<label> E-Mail</label>
+							<input type="text" formControlName="editmail" class="form-control"  >
+						</div>
+					</div>
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<div class="form-group">
+							<label> Mobile Number</label>
+							<input type="text" class="form-control" formControlName="editmobile" >
+						</div>
+					</div>						
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<div class="form-group">
+							<label>Status</label>
+							<select  class="form-control" formControlName="status" >
+								<option value="Active">Active</option>
+								<option value="InActive">InActive</option>
+							</select>
+						</div> 
+					</div>
+				</div>				
+
+				<div class="row" style="margin:0;">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+						<label>Rights</label>
+						<div class="row">							  
+							<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12"  *ngFor="let item of EditRights" >
+								<label class="checkboxlabel"><input type ="checkbox" (change)="getcheckedrights($event,checkboxValue.value);"  value="{{item.RightName}}" #checkboxValue [checked]="item.Status"> {{item.RightName}} </label>							
+							</div>							 
+						</div>	  
+					</div>    
+				</div>
+				<div class="row">
+					<div class="col-sm-9 col-md-9 col-lg-9 col-xs-12"></div>
+					<div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+						<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" [style.background-color]="theme" (click)="edituser();"> Update	</button>
+					</div>
+				</div>
+			</form>
+
+			<div class="row customrow">
+                <p class="instructionforclicktxt">*Click table row for Edit Bus Service Details </p>
+				<div class="table-responsive">
+					<table class="table table-hover table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>User ID</th>
+								<th>Name</th>
+								<th>E-Mail </th>
+								<th>Mobile Number</th>
+								<th>Password</th>
+								<th>Rights</th>					
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let item of users | paginate: { itemsPerPage: 10, currentPage: p }" (click)="edituserdetails(item);">
+								<td>{{item.userid}}</td>
+								<td>{{item.name}}</td>
+								<td>{{item.email}}</td>
+								<td>{{item.mobileno}}</td>									
+								<td>{{item.password}}</td>
+								<td>{{item.rights}}</td>												
+							</tr>
+						</tbody>
+					</table>
+					<div class="paginationdiv">
+						<pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+					</div>
+				</div>
+            </div>
+		</div>
+	
+	</div>
+</div>
+</div>
+    
+    <router-outlet></router-outlet>  

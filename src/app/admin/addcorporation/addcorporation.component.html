@@ -1,0 +1,208 @@
+<div class="container-fluid">
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a data-toggle="pill" href="#corporationcreate">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> 
+                    Add Corporation
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#corporationlist">
+                    <i class="fa fa-table" aria-hidden="true"></i> 
+                    View Corporation List
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#corporationedit">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+                    Edit/Update Corporation List
+                </a>
+            </li>
+          
+        </ul>
+          
+        <div class="tab-content">
+
+            <div id="corporationcreate" class="tab-pane fade in active">
+                <form autocomplete="off"  [formGroup]="addcorporationform" (ngSubmit)="addepasscorporation();">
+                    <div class="row customrow">
+                        <p class="headingtxttabcontent" [style.color]="theme" >ADD CORPORATION DETAILS</p>
+                    </div>
+                    <div class="row">
+                       
+                        <div class="col-sm-3">                            
+                            <input type="text" class="form-control" formControlName="statename" placeholder="Statename" (click)="statelistopen();" readonly> 
+                            <div *ngIf="epassstatelist  && role !== 'Admin'">
+                                <div class="dropdownlistdiv" *ngIf="statelistdropdown&&epassstatelist.length>0">
+                                    <input type="text" class="form-control" placeholder="Search State"  [(ngModel)]="term" formControlName="searchstate">
+                                    <div class="dropdownscroll">
+                                        <div class="dropdowndiv" *ngFor="let item of epassstatelist |filter:term" (click)="updatestatefield(item)">
+                                             {{item.statename}}
+                                        </div>
+                                    </div>                                   
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationcode" placeholder="Corporation Register No"> 
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationname" placeholder="Corporation Name"> 
+                        </div>
+                      
+                    </div>
+                    <div class="row customrow">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px !important;" [style.background-color]="theme">
+                            Submit
+                        </button>
+                    </div>
+                    
+                </form>
+                <p class="ortxt"><span class="orspan card"  [style.color]="theme">OR</span></p>
+                <div class="row customrow">
+                    <p class="headingtxttabcontent" [style.color]="theme">EXCEL FILE UPLOAD</p>
+                    <p class="instructionforclicktxt">*Click Excel image to Download Format then Fill Data then Upload Your Data's</p>
+                </div>
+                <div class="row customrow">
+                    <div class="col-sm-3">
+                        <a href="../../../assets/excel/corporation.xlsx" download>
+                            <img src="../../../assets/images/excel.png" style="width:100px;">
+                            <i class="material-icons downloadiconstyle card"> get_app </i>
+                        </a>
+                       
+                    </div>
+
+                    <div class="col-sm-6">
+                        <input type="file" class="form-control" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx"  style="margin:15px !important;" >
+                    </div>
+                   <div class="col-sm-3">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px !important;"  (click)="Upload()" [style.background-color]="theme">
+                            Upload
+                        </button>
+                   </div>
+                   
+                </div>
+               
+            
+            </div>
+
+            <div id="corporationlist" class="tab-pane fade">
+                <div class="row customrow">
+                    <p class="headingtxttabcontent" [style.color]="theme">VIEW CORPORATION DETAILS</p>
+                </div>
+                <div class="row customrow" style="margin:0;">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>S No</th>
+                                    <th>Country Name</th>
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>Status</th>
+                                    <th>Update By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of allepasscorporationlist | paginate: { itemsPerPage: 10, currentPage: p }">
+                                    <td>{{item.sno}}</td>
+                                    <td>{{item.countryname}}</td>
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td>{{item.updateby}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationdiv">
+                            <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="corporationedit" class="tab-pane fade">
+                <form autocomplete="off"  [formGroup]="editcorporationform" (ngSubmit)="editepasscorporation();">
+                    <div class="row customrow">
+                        <p class="headingtxttabcontent" [style.color]="theme">EDIT CORPORATION DETAILS</p>
+                    </div>
+                    <div class="row customrow">
+                       
+                        <div class="col-sm-3">
+                            
+                            <input type="text" class="form-control" formControlName="statename" placeholder="Statename" (click)="editstatelistopen();" readonly> 
+                            <div class="dropdownlistdiv" *ngIf="editstatelistdropdown">
+                               
+                                <div class="dropdowndiv" *ngFor="let item of epassstatelist" (click)="updateeditstatefield(item)">
+                                    {{item.statename}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationcode" placeholder="Corporation Register Number"> 
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" formControlName="corporationname" placeholder="Corporation Name"> 
+                        </div>
+                        <div class="col-sm-3">
+                                <select class="form-control" formControlName="status">
+                                   
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                      
+                    </div>
+                    
+                    <div class="row">
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" style="margin:15px;" [style.background-color]="theme">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+                <br/>
+                
+                <div class="row customrow" style="margin:0;">
+                    <p class="instructionforclicktxt">*Click table row for Edit Corporation Details </p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>S No</th>
+                                    <th>Country Name</th>
+                                    <th>State Name</th>
+                                    <th>Corporation Name</th>
+                                    <th>Status</th>
+                                    <th>Update By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of allepasscorporationlist | paginate: { itemsPerPage: 10, currentPage: p }" (click)="editcorporationdetailfetch(item)">
+                                    <td>{{item.sno}}</td>
+                                    <td>{{item.countryname}}</td>
+                                    <td>{{item.statename}}</td>
+                                    <td>{{item.corporationname}}</td>
+                                    <td>{{item.status}}</td>
+                                    <td>{{item.updateby}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="paginationdiv">
+                            <pagination-controls (pageChange)="p = $event" [style.baground-color]="theme"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+    
+<router-outlet></router-outlet>
+    
+    
